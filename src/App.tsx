@@ -11,6 +11,7 @@ import { ConceptsSection } from './components/ConceptsSection';
 import { QuizSection } from './components/QuizSection';
 import { FormulaBuilder, HistoryRecord } from './components/FormulaBuilder';
 import { CalculationHistory } from './components/CalculationHistory';
+import { GitHubGuideModal } from './components/GitHubGuideModal';
 import { 
   Download, 
   Terminal, 
@@ -20,7 +21,8 @@ import {
   History,
   Sparkles,
   ArrowRight,
-  CheckCircle2
+  CheckCircle2,
+  GitBranch
 } from 'lucide-react';
 
 const INITIAL_HISTORY: HistoryRecord[] = [
@@ -54,6 +56,7 @@ export default function App() {
   const [selectedVersion, setSelectedVersion] = useState<CodeVersion>(CODE_VERSIONS[3] || CODE_VERSIONS[0]);
   const [selectedConceptKey, setSelectedConceptKey] = useState<string>('potencia');
   const [selectedFormulaForBuilder, setSelectedFormulaForBuilder] = useState<string | null>(null);
+  const [isGitHubModalOpen, setIsGitHubModalOpen] = useState(false);
 
   // Load history from localStorage
   const [history, setHistory] = useState<HistoryRecord[]>(() => {
@@ -208,8 +211,18 @@ export default function App() {
                 className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 text-xs font-medium py-2.5 px-4 rounded-lg transition-colors whitespace-nowrap"
               >
                 <History className="w-3.5 h-3.5 text-indigo-400" />
-                <span>Ver Histórico de Cálculos ({history.length})</span>
+                <span>Ver Histórico ({history.length})</span>
               </a>
+
+              <button
+                type="button"
+                onClick={() => setIsGitHubModalOpen(true)}
+                className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-indigo-300 hover:text-indigo-200 text-xs font-medium py-2.5 px-3.5 rounded-lg transition-colors whitespace-nowrap"
+                title="Abrir guia com comandos para subir no GitHub"
+              >
+                <GitBranch className="w-3.5 h-3.5 text-indigo-400" />
+                <span>Como Publicar no GitHub</span>
+              </button>
             </div>
 
             {/* Quick Operations Indicator Cards */}
@@ -350,10 +363,23 @@ export default function App() {
             <a href="#historico" className="hover:text-slate-200 transition-colors">Histórico</a>
             <a href="#codigo" className="hover:text-slate-200 transition-colors">Código</a>
             <a href="#explicacoes" className="hover:text-slate-200 transition-colors">Conceitos</a>
-            <a href="#quiz" className="hover:text-slate-200 transition-colors">Quiz</a>
+            <button
+              type="button"
+              onClick={() => setIsGitHubModalOpen(true)}
+              className="text-indigo-400 hover:text-indigo-300 transition-colors flex items-center gap-1 font-medium"
+            >
+              <GitBranch className="w-3.5 h-3.5" />
+              <span>Publicar no GitHub</span>
+            </button>
           </div>
         </div>
       </footer>
+
+      {/* GitHub Guide Modal */}
+      <GitHubGuideModal 
+        isOpen={isGitHubModalOpen} 
+        onClose={() => setIsGitHubModalOpen(false)} 
+      />
     </div>
   );
 }

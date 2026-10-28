@@ -1,8 +1,26 @@
+# Dependências Node.js
 node_modules/
-build/
 dist/
+build/
 coverage/
-.DS_Store
+
+# Logs e arquivos temporários do sistema
 *.log
-.env*
+.DS_Store
+Thumbs.db
+
+# Variáveis de ambiente (segredos)
+.env
+.env.local
+.env.*.local
 !.env.example
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv/
+env/
+venv/
+ENV/
